@@ -1,0 +1,33 @@
+version: '3'
+services:
+  db:
+    image: postgres:12.2
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - fullstack
+  go-example:
+    depends_on:
+      - db
+    image: strongjz/golang_example:0.0.5
+    ports:
+      - "8080:8080"
+      - "8090:8090"
+    restart: always
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      PORT: ${PORT}
+      VERSION: ${VERSION}
+    networks:
+      - fullstack
+
+networks:
+  fullstack:
+    driver: bridge
