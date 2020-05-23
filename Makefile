@@ -70,19 +70,28 @@ check:
 
 
 tf_clean:
+	cd terraform/ && \
 	rm -rf .terraform \
 	rm -rf plan.out
 
+tf_init:
+	cd terraform/ && \
+	terraform init
+
 tf_get:
+	cd terraform/ && \
 	terraform get
 
 tf_plan:
+	cd terraform/ && \
 	terraform plan -out=plan.out
 
 tf_apply:
+	cd terraform/ && \
 	terraform apply -auto-approve
 
 tf_destroy:
+	cd terraform/ && \
 	terraform destroy
 
 falco_deploy: deploy-fluent-bit deploy-falco

@@ -16,4 +16,5 @@
 
 .env
 
-.idea
+.idea/
+terraform/.terraform/
