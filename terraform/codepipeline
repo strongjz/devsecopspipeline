@@ -1,6 +1,6 @@
 resource "aws_s3_bucket" "codepipeline_bucket" {
   bucket = "austin_devsecops_code"
-  acl    = "private"
+  acl = "private"
 }
 
 resource "aws_iam_role" "codepipeline_role" {
@@ -57,12 +57,12 @@ EOF
 }
 
 resource "aws_codepipeline" "codepipeline" {
-  name     = "austin-devsecops-pipeline"
+  name = "austin-devsecops-pipeline"
   role_arn = aws_iam_role.codepipeline_role.arn
 
   artifact_store {
     location = aws_s3_bucket.codepipeline_bucket.bucket
-    type     = "S3"
+    type = "S3"
 
   }
 
@@ -70,16 +70,17 @@ resource "aws_codepipeline" "codepipeline" {
     name = "Source"
 
     action {
-      name             = "Source"
-      category         = "Source"
-      owner            = "ThirdParty"
-      provider         = "GitHub"
-      version          = "1"
-      output_artifacts = ["source_output"]
+      name = "Source"
+      category = "Source"
+      owner = "ThirdParty"
+      provider = "GitHub"
+      version = "1"
+      output_artifacts = [
+        "source_output"]
 
       configuration = {
-        Owner  = "strongjz"
-        Repo   = "devsecops-container-pipeline"
+        Owner = "strongjz"
+        Repo = "devsecops-container-pipeline"
         Branch = "master"
       }
     }
@@ -89,13 +90,15 @@ resource "aws_codepipeline" "codepipeline" {
     name = "Build"
 
     action {
-      name             = "Build"
-      category         = "Build"
-      owner            = "AWS"
-      provider         = "CodeBuild"
-      input_artifacts  = ["source_output"]
-      output_artifacts = ["build_output"]
-      version          = "1"
+      name = "Build"
+      category = "Build"
+      owner = "AWS"
+      provider = "CodeBuild"
+      input_artifacts = [
+        "source_output"]
+      output_artifacts = [
+        "build_output"]
+      version = "1"
 
       configuration = {
         ProjectName = "austin-devsecops"
@@ -107,19 +110,20 @@ resource "aws_codepipeline" "codepipeline" {
     name = "Deploy"
 
     action {
-      name            = "Deploy"
-      category        = "Deploy"
-      owner           = "AWS"
-      provider        = "CloudFormation"
-      input_artifacts = ["build_output"]
-      version         = "1"
+      name = "Deploy"
+      category = "Deploy"
+      owner = "AWS"
+      provider = "CloudFormation"
+      input_artifacts = [
+        "build_output"]
+      version = "1"
 
       configuration = {
-        ActionMode     = "REPLACE_ON_FAILURE"
-        Capabilities   = "CAPABILITY_AUTO_EXPAND,CAPABILITY_IAM"
+        ActionMode = "REPLACE_ON_FAILURE"
+        Capabilities = "CAPABILITY_AUTO_EXPAND,CAPABILITY_IAM"
         OutputFileName = "CreateStackOutput.json"
-        StackName      = "MyStack"
-        TemplatePath   = "build_output::sam-templated.yaml"
+        StackName = "MyStack"
+        TemplatePath = "build_output::sam-templated.yaml"
       }
     }
   }

@@ -1,5 +1,15 @@
 ---
 version: 0.2
+env:
+  variables:
+    OUTPUT: "golang_example"
+    REGISTRY: "strongjz"
+    IMAGE: "golang_example"
+    VERSION: "0.0.4"
+    AWS_PROFILE: "contino"
+    AWS_REGION: "us-west-2"
+
+
 phases:
   install:
     commands:

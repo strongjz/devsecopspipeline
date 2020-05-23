@@ -2,7 +2,6 @@ DevSecOps Container Pipeline Demo
 
 Austin AWS Meetup 28.05.2020
 
-
 ### Overview 
 
 * Github Repo
@@ -43,11 +42,11 @@ https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning.html
 
 Stages for Code pipeline 
 
-Build - Build golang example applications
+Build - Build golang example applications, in a docker container and stores it in the AWS ECR
 
-Test 
+Test - runs any tests in the golang example applications
 
-Deploy
+Deploy - deploys 
 
 
 ### Immutable Tags - AWS ECR 
@@ -57,7 +56,6 @@ Deploy
 ### Logging - FireLens 
 
 ### Alerting - Cloudwatch
-
 
 Credits and Thank you to 
 
