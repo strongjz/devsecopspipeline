@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	app "github.com/strongjz/devsecops-container-pipeline/app"
+	app "github.com/strongjz/devsecopspipeline/app"
 )
 
 func main() {

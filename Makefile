@@ -21,7 +21,7 @@ clean:
 	rm -f $(OUTPUT)
 
 install:
-	go get .
+	env GIT_TERMINAL_PROMPT=1 go get -d -v .
 
 build: install
 	go build -o $(OUTPUT) main.go
@@ -32,7 +32,6 @@ run: install
 compose_up:
 	docker-compose up
 
-
 docker_run:
 	docker run --env-file=.env -it --rm -p 8080:8080 -p 8090:8090 $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com//$(IMAGE):$(VERSION)
 
@@ -41,7 +40,7 @@ docker_build:
 
 docker_push: docker_build
 	docker push $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION); \
-	git tag -a $(VERSION); \
+	git tag -a $(VERSION) \
 	git push origin --tags
 
 cluster:
