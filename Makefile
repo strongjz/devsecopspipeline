@@ -1,7 +1,7 @@
 OUTPUT ?= golang_example
 REGISTRY ?= strongjz
 IMAGE ?= golang_example
-VERSION ?= 0.0.4
+VERSION ?= 0.0.5
 AWS_PROFILE ?= contino
 AWS_REGION ?= us-west-2
 NODE_ROLE_NAME ?= ng-1
@@ -32,14 +32,15 @@ run: install
 compose_up:
 	docker-compose up
 
-docker_build:
-	docker build -t $(REGISTRY)/$(IMAGE):$(VERSION) .
 
 docker_run:
-	docker run --env-file=.env -it --rm -p 8080:8080 -p 8090:8090 $(REGISTRY)/$(IMAGE):$(VERSION)
+	docker run --env-file=.env -it --rm -p 8080:8080 -p 8090:8090 $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com//$(IMAGE):$(VERSION)
+
+docker_build:
+	docker build -t $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION) .
 
 docker_push: docker_build
-	docker push $(REGISTRY)/$(IMAGE):$(VERSION); \
+	docker push $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION); \
 	git tag -a $(VERSION); \
 	git push origin --tags
 

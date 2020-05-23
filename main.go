@@ -7,7 +7,6 @@ import (
 
 func main() {
 
-
 	app := app.New()
 
 	fmt.Println("Starting App")
