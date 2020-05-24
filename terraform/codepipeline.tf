@@ -86,7 +86,7 @@ resource "aws_codepipeline" "codepipeline" {
         Owner = "strongjz"
         Repo = "devsecopspipeline"
         Branch = "master"
-        OAuthToken = "${data.aws_ssm_parameter.github_token.value}"
+        OAuthToken = data.aws_ssm_parameter.github_token.value
       }
     }
   }

@@ -7,7 +7,7 @@ env:
     IMAGE: "golang_example"
     VERSION: "0.0.4"
     AWS_REGION: "us-west-2"
-    EKS_KUBECTL_ROLE_ARN: "arn:aws:iam::725406136353:role/eks-austin-devsecops-2"
+    EKS_KUBECTL_ROLE_ARN: "arn:aws:iam::725406136353:role/devsecops-austin-codebuild"
 
 phases:
   install:
