@@ -2,20 +2,20 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: src
-  name: src
+    app: devsecopspipeline
+  name: devsecopspipeline
 spec:
   replicas: 7
   selector:
     matchLabels:
-      app: src
+      app: devsecopspipeline
   template:
     metadata:
       labels:
-        app: src
+        app: devsecopspipeline
     spec:
       containers:
-        - name: src
+        - name: devsecopspipeline
           image: strongjz/golang_example:0.0.4
           ports:
             - containerPort: 8080
@@ -46,10 +46,10 @@ kind: Service
 metadata:
   name: clusterip-service
   labels:
-    app: src
+    app: devsecopspipeline
 spec:
   selector:
-    app: src
+    app: devsecopspipeline
   ports:
     - protocol: TCP
       port: 80
