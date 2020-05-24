@@ -2,7 +2,6 @@ OUTPUT ?= golang_example
 REGISTRY ?= strongjz
 IMAGE ?= golang_example
 VERSION ?= 0.0.5
-AWS_PROFILE ?= contino-static
 AWS_REGION ?= us-west-2
 NODE_ROLE_NAME ?= ng-1
 
