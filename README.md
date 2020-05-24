@@ -51,6 +51,22 @@ Deploy - deploys
 
 ### Immutable Tags - AWS ECR 
 
+
+
+     2020-05-24 19:43:28 ⌚  strongjz-macbook in ~/Documents/code/go/src/github.com/strongjz/devsecopspipeline
+    ± |master U:2 ✗| → docker tag nginx 725406136353.dkr.ecr.us-west-2.amazonaws.com/golang_example:0.0.7
+    
+     2020-05-24 19:44:43 ⌚  strongjz-macbook in ~/Documents/code/go/src/github.com/strongjz/devsecopspipeline
+    ± |master U:2 ✗| → docker push 725406136353.dkr.ecr.us-west-2.amazonaws.com/golang_example:0.0.7
+    The push refers to repository [725406136353.dkr.ecr.us-west-2.amazonaws.com/golang_example]
+    6c7de695ede3: Pushed 
+    2f4accd375d9: Pushed 
+    ffc9b21953f4: Pushed 
+    [DEPRECATION NOTICE] registry v2 schema1 support will be removed in an upcoming release. Please contact admins of the 725406136353.dkr.ecr.us-west-2.amazonaws.com registry NOW to avoid future disruption. More information at https://docs.docker.com/registry/spec/deprecated-schema-v1/
+    tag invalid: The image tag '0.0.7' already exists in the 'golang_example' repository and cannot be overwritten because the repository is immutable.
+
+
+
 ### Run Time Security - Falco
 
 ### Logging - FireLens 
