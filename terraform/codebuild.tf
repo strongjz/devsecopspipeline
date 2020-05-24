@@ -62,7 +62,8 @@ resource "aws_iam_role_policy" "devsecops-austin-codebuild" {
         "ec2:DescribeSubnets",
         "ec2:DescribeSecurityGroups",
         "ec2:DescribeVpcs",
-        "ecr:*"
+        "ecr:*",
+        "ssm:*"
       ],
       "Resource": "*"
     },

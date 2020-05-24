@@ -39,7 +39,7 @@ compose_up:
 	docker-compose up
 
 docker_build:
-	docker build -t $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION) .
+	docker build -t $(ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION) .
 
 ecr_auth:
 	$(eval $(aws ecr get-login --no-include-email))
@@ -48,7 +48,7 @@ docker_push: ecr_auth
 	docker push $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION)
 
 docker_run:
-	docker run --env-file=.env -it --rm -p 8080:8080 -p 8090:8090 $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION)
+	docker run --env-file=.env -it --rm -p 8080:8080 -p 8090:8090 $(ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION)
 
 cluster:
 	eksctl create cluster -f eks-config.yml

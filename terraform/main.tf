@@ -15,7 +15,7 @@ data "aws_caller_identity" "current" {}
 
 resource "aws_ssm_parameter" "account_id" {
   value = data.aws_caller_identity.current.account_id
-  name = "AWS_ACCOUNT_ID"
+  name = "ACCOUNT_ID"
   type = "String"
 }
 
