@@ -1,7 +1,7 @@
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 metadata:
-  name: austin-devsecops
+  name: austin-devsecops-2
   region: us-west-2
 nodeGroups:
   - name: ng-1

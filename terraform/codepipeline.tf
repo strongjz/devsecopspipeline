@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "codepipeline_bucket" {
-  bucket = "austin_devsecops_code"
+  bucket = "austin-devsecops-code"
   acl = "private"
 }
 
@@ -56,6 +56,10 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
 EOF
 }
 
+data "aws_ssm_parameter" "github_token" {
+  name = "devsecops-austin"
+}
+
 resource "aws_codepipeline" "codepipeline" {
   name = "austin-devsecops-pipeline"
   role_arn = aws_iam_role.codepipeline_role.arn
@@ -80,8 +84,9 @@ resource "aws_codepipeline" "codepipeline" {
 
       configuration = {
         Owner = "strongjz"
-        Repo = "devsecops-container-pipeline"
+        Repo = "devsecopspipeline"
         Branch = "master"
+        OAuthToken = "${data.aws_ssm_parameter.github_token.value}"
       }
     }
   }
@@ -101,7 +106,7 @@ resource "aws_codepipeline" "codepipeline" {
       version = "1"
 
       configuration = {
-        ProjectName = "austin-devsecops"
+        ProjectName = "devsecops-austin-codebuild"
       }
     }
   }
