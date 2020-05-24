@@ -8,6 +8,7 @@ env:
     VERSION: "0.0.4"
     AWS_REGION: "us-west-2"
     EKS_KUBECTL_ROLE_NAME: "devsecops-austin-codebuild"
+    EKS_CLUSTER_NAME: "austin-devsecops-2"
 
 phases:
   install:
