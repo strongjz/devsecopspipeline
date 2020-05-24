@@ -115,8 +115,8 @@ resource "aws_codebuild_project" "devsecops-austin-codebuild" {
     image_pull_credentials_type = "CODEBUILD"
 
     environment_variable {
-      name  = "AWS_ACCOUNT_ID"
-      value = "AWS_ACCOUNT_ID"
+      name  = "ACCOUNT_ID"
+      value = "ACCOUNT_ID"
       type  = "PARAMETER_STORE"
     }
   }
