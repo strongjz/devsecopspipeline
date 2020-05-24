@@ -1,7 +1,7 @@
 OUTPUT ?= golang_example
 REGISTRY ?= strongjz
 IMAGE ?= golang_example
-VERSION ?= 0.0.5
+VERSION ?= 0.0.7
 AWS_REGION ?= us-west-2
 NODE_ROLE_NAME ?= ng-1
 DB_HOST ?= db
