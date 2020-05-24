@@ -6,6 +6,7 @@ metadata:
 nodeGroups:
   - name: ng-1
     instanceType: m4.xlarge
+    ami: ami-031d5da11ccc1c07b
     desiredCapacity: 3
     ssh:
       allow: true

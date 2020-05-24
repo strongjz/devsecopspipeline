@@ -2,7 +2,7 @@ OUTPUT ?= golang_example
 REGISTRY ?= strongjz
 IMAGE ?= golang_example
 VERSION ?= 0.0.5
-AWS_PROFILE ?= contino
+AWS_PROFILE ?= contino-static
 AWS_REGION ?= us-west-2
 NODE_ROLE_NAME ?= ng-1
 
@@ -36,12 +36,10 @@ docker_build:
 	docker build -t $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION) .
 
 ecr_auth:
-	eval $(aws ecr get-login --no-include-email)
+	$(eval $(aws ecr get-login --no-include-email))
 
-docker_push: docker_build ecr_auth
-	docker push $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION); \
-	git tag -a $(VERSION) \
-	git push origin --tags
+docker_push: ecr_auth
+	docker push $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION)
 
 docker_run:
 	docker run --env-file=.env -it --rm -p 8080:8080 -p 8090:8090 $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION)
