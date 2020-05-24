@@ -69,7 +69,9 @@ resource "aws_iam_role_policy" "devsecops-austin-codebuild" {
       ],
       "Resource": [
         "${aws_s3_bucket.codebuild_s3.arn}",
-        "${aws_s3_bucket.codebuild_s3.arn}/*"
+        "${aws_s3_bucket.codebuild_s3.arn}/*",
+        "${aws_s3_bucket.codepipeline_bucket.arn}",
+        "${aws_s3_bucket.codepipeline_bucket.arn}/*"
       ]
     }
   ]
@@ -114,8 +116,7 @@ resource "aws_codebuild_project" "devsecops-austin-codebuild" {
 
   source {
     type = "CODEPIPELINE"
-    buildspec = "buildspec.yml"
-
+    buildspec = file("${path.module}/../buildspec.yml")
   }
 
   source_version = "master"
@@ -124,7 +125,6 @@ resource "aws_codebuild_project" "devsecops-austin-codebuild" {
     Environment = "devsecops-austin"
   }
 }
-
 
 resource "aws_cloudwatch_log_group" "codebuild" {
   name = "devsecops-austin-codebuild"
