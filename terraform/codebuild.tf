@@ -113,7 +113,14 @@ resource "aws_codebuild_project" "devsecops-austin-codebuild" {
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"
 
+    environment_variable {
+      name  = "AWS_ACCOUNT_ID"
+      value = "AWS_ACCOUNT_ID"
+      type  = "PARAMETER_STORE"
+    }
   }
+
+
 
   logs_config {
     cloudwatch_logs {
