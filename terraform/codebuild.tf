@@ -119,6 +119,13 @@ resource "aws_codebuild_project" "devsecops-austin-codebuild" {
       value = "ACCOUNT_ID"
       type  = "PARAMETER_STORE"
     }
+
+    environment_variable {
+      name  = "EKS_KUBECTL_ROLE_NAME"
+      value = aws_iam_role.devsecops-austin-codebuild.name
+    }
+
+
   }
 
 
