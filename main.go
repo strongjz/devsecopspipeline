@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/strongjz/devsecopspipeline/devsecopspipeline"
+	app "github.com/strongjz/devsecopspipeline/app"
 )
 
 func main() {
 
-	app := devsecopspipeline.New()
+	app := app.New()
 
 	fmt.Println("Starting App")
 

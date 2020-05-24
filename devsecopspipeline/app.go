@@ -1,4 +1,4 @@
-package devsecopspipeline
+package app
 
 import (
 	"fmt"
