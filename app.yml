@@ -2,20 +2,20 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: app
-  name: app
+    app: src
+  name: src
 spec:
   replicas: 7
   selector:
     matchLabels:
-      app: app
+      app: src
   template:
     metadata:
       labels:
-        app: app
+        app: src
     spec:
       containers:
-        - name: app
+        - name: src
           image: strongjz/golang_example:0.0.4
           ports:
             - containerPort: 8080
@@ -46,10 +46,10 @@ kind: Service
 metadata:
   name: clusterip-service
   labels:
-    app: app
+    app: src
 spec:
   selector:
-    app: app
+    app: src
   ports:
     - protocol: TCP
       port: 80
