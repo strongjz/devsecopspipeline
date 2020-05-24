@@ -62,3 +62,5 @@ Credits and Thank you to
 @rnzsgh https://github.com/rnzsgh/eks-workshop-sample-api-service-go
 
 Sysdig Blog Falco EKS deployment https://sysdig.com/blog/multi-cluster-security-firelens/
+
+https://github.com/aws/aws-codebuild-docker-images/issues/164
