@@ -45,7 +45,7 @@ ecr_auth:
 	$(eval $(aws ecr get-login --no-include-email))
 
 docker_push: ecr_auth
-	docker push $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION)
+	docker push $(ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION)
 
 docker_run:
 	docker run --env-file=.env -it --rm -p 8080:8080 -p 8090:8090 $(ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION)
