@@ -4,8 +4,15 @@ IMAGE ?= golang_example
 VERSION ?= 0.0.5
 AWS_REGION ?= us-west-2
 NODE_ROLE_NAME ?= ng-1
+DB_HOST ?= db
+DB_USER ?= postgres
+DB_NAME ?= pqgotest
+DB_PORT ?= 5432
+MY_NODE_NAME ?= test
+MY_POD_IP ?= 1.1.1.1
+PORT ?= 8080
+VERSION ?= 0.0.5
 
-include .env
 export
 
 .PHONY: test clean install

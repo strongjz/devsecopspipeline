@@ -4,7 +4,7 @@ resource "aws_s3_bucket" "codebuild_s3" {
 }
 
 resource "aws_iam_role" "devsecops-austin-codebuild" {
-  name = "devsecops-austin-codebuild"
+    name = "devsecops-austin-codebuild"
 
   assume_role_policy = <<EOF
 {
@@ -48,7 +48,8 @@ resource "aws_iam_role_policy" "devsecops-austin-codebuild" {
       "Action": [
         "logs:CreateLogGroup",
         "logs:CreateLogStream",
-        "logs:PutLogEvents"
+        "logs:PutLogEvents",
+        "sts:AssumeRole"
       ]
     },
     {
@@ -60,7 +61,8 @@ resource "aws_iam_role_policy" "devsecops-austin-codebuild" {
         "ec2:DeleteNetworkInterface",
         "ec2:DescribeSubnets",
         "ec2:DescribeSecurityGroups",
-        "ec2:DescribeVpcs"
+        "ec2:DescribeVpcs",
+        "ecr:*"
       ],
       "Resource": "*"
     },
