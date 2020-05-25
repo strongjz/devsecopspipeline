@@ -11,7 +11,7 @@ DB_PORT ?= 5432
 MY_NODE_NAME ?= test
 MY_POD_IP ?= 1.1.1.1
 PORT ?= 8080
-VERSION ?= 0.0.5
+VERSION ?= 0.0.8
 EKS_KUBECTL_ROLE_NAME ?= devsecops-austin-codebuild
 EKS_CLUSTER_NAME ?= austin-devsecops-2
 
