@@ -20,7 +20,7 @@ data:
     [OUTPUT]
         Name cloudwatch
         Match falco.**
-        region eu-west-1
+        region us-west-2
         log_group_name falco
         log_stream_name alerts
         auto_create_group true

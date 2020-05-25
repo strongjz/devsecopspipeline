@@ -92,6 +92,25 @@ resource "aws_codepipeline" "codepipeline" {
   }
 
   stage {
+    name = "Report"
+
+    action {
+      name     = "Report"
+      category = "Invoke"
+      owner    = "AWS"
+      provider = "CodeBuild"
+      input_artifacts = [
+        "source_output"]
+      output_artifacts =[
+      "static_output"]
+      version = "1"
+      configuration = {
+        ProjectName = "devsecops-austin-codebuild"
+      }
+    }
+  }
+
+  stage {
     name = "Build"
 
     action {

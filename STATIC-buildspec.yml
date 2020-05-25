@@ -1,0 +1,21 @@
+---
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - apt-get update && apt-get -y install curl golangjq python3-pip python3-dev && pip3 install --upgrade awscli
+      - wget https://dl.google.com/go/$GOLANG_VERSION.linux-amd64.tar.gz
+      - sudo tar -xvf $GOLANG_VERSION.linux-amd64.tar.gz
+      - sudo mv go /usr/local
+      - export GOROOT=/usr/local/go
+  build:
+    commands:
+      make go_report
+  post_build:
+    commands:
+artifacts:
+  files:
+    - reports/*
+  base-directory: reports/
+  name: static-code-report

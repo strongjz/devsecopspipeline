@@ -6,14 +6,6 @@ metadata:
   version: "1.16"
 
 nodeGroups:
-  - name: regular-node-group
-    instanceType: m5.large
-    desiredCapacity: 1
-    ssh:
-      allow: true
-      publicKeyPath: mac-work
-    tags:
-      nodegroup-role: worker
   - name: falco-ubuntu-node-group
     instanceType: m5.large
     ami: ami-0ec78b587b1fe49d7

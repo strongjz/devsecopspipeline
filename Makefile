@@ -37,6 +37,11 @@ build: install
 run: install
 	go run main.go
 
+go_report:
+	go get -u github.com/360EntSecGroup-Skylar/goreporter && \
+	goreporter -p . -r ./reports -f html
+
+
 compose_up:
 	docker-compose up
 
@@ -64,11 +69,6 @@ prom: helm_update
 	helm install prometheus stable/prometheus \
         --namespace prometheus \
         --set alertmanager.persistentVolume.storageClass="gp2",server.persistentVolume.storageClass="gp2"
-
-falco:
-	git clone git@github.com:sysdiglabs/falco-aws-firelens-integration.git && \
-	cd falco-aws-firelens-integration/eks && \
-	make
 
 check:
 	terraform -v  >/dev/null 2>&1 || echo "Terraform not installed" || exit 1 && \
