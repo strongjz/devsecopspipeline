@@ -77,6 +77,8 @@ check:
 	eksctl version >/dev/null 2>&1 || echo "eksctl not installed" || exit 1 && \
 	kubectl --help >/dev/null 2>&1 || echo "kubectl not installed" || exit 1
 
+codebuild:
+	./codebuild.sh -i ubuntu:latest -a .
 
 tf_clean:
 	cd terraform/ && \
