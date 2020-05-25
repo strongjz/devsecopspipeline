@@ -60,6 +60,10 @@ docker_run:
 cluster:
 	eksctl create cluster -f eks-config.yml
 
+clean_cluster:
+	eksctl delete cluster -f eks-config.yml
+
+
 helm_update:
 	helm repo update && \
 	helm repo add stable https://kubernetes-charts.storage.googleapis.com/
