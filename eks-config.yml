@@ -6,8 +6,8 @@ metadata:
 nodeGroups:
   - name: ng-1
     instanceType: m5.large
-    amiFamily: Ubuntu1804
-    desiredCapacity: 3
+    ami: ami-0ec78b587b1fe49d7
+    desiredCapacity: 1
     ssh:
       allow: true
       publicKeyPath: mac-work
