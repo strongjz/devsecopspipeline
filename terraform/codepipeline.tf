@@ -1,6 +1,6 @@
 resource "aws_s3_bucket" "codepipeline_bucket" {
   bucket = "austin-devsecops-code"
-  acl = "private"
+  acl    = "private"
 }
 
 resource "aws_iam_role" "codepipeline_role" {
@@ -61,12 +61,12 @@ data "aws_ssm_parameter" "github_token" {
 }
 
 resource "aws_codepipeline" "codepipeline" {
-  name = "austin-devsecops-pipeline"
+  name     = "austin-devsecops-pipeline"
   role_arn = aws_iam_role.codepipeline_role.arn
 
   artifact_store {
     location = aws_s3_bucket.codepipeline_bucket.bucket
-    type = "S3"
+    type     = "S3"
 
   }
 
@@ -74,18 +74,18 @@ resource "aws_codepipeline" "codepipeline" {
     name = "Source"
 
     action {
-      name = "Source"
+      name     = "Source"
       category = "Source"
-      owner = "ThirdParty"
+      owner    = "ThirdParty"
       provider = "GitHub"
-      version = "1"
+      version  = "1"
       output_artifacts = [
-        "source_output"]
+      "source_output"]
 
       configuration = {
-        Owner = "strongjz"
-        Repo = "devsecopspipeline"
-        Branch = "master"
+        Owner      = "strongjz"
+        Repo       = "devsecopspipeline"
+        Branch     = "master"
         OAuthToken = data.aws_ssm_parameter.github_token.value
       }
     }
@@ -95,14 +95,12 @@ resource "aws_codepipeline" "codepipeline" {
     name = "Build"
 
     action {
-      name = "Build"
+      name     = "Build"
       category = "Build"
-      owner = "AWS"
+      owner    = "AWS"
       provider = "CodeBuild"
       input_artifacts = [
-        "source_output"]
-      output_artifacts = [
-        "build_output"]
+      "source_output"]
       version = "1"
 
       configuration = {

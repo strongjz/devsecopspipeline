@@ -1,10 +1,20 @@
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 metadata:
-  name: austin-devsecops-2
+  name: austin-devsecops
   region: us-west-2
+  version: "1.16"
+
 nodeGroups:
-  - name: ng-1
+  - name: regular-node-group
+    instanceType: m5.large
+    desiredCapacity: 1
+    ssh:
+      allow: true
+      publicKeyPath: mac-work
+    tags:
+      nodegroup-role: worker
+  - name: falco-ubuntu-node-group
     instanceType: m5.large
     ami: ami-0ec78b587b1fe49d7
     desiredCapacity: 1
