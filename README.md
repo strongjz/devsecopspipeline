@@ -11,6 +11,7 @@ Austin AWS Meetup 28.05.2020
 * Run Time Security - Falco
 * Logging - FireLens 
 * Alerting - Cloudwatch
+* Auditing - Cloudtrail 
 
 ### Github Repo
 
@@ -44,12 +45,16 @@ Stages for Code pipeline
 
 Build - Build golang example applications, in a docker container and stores it in the AWS ECR
 
+Invoke - Runs the Go Report Static Code analysis
+
 Test - runs any tests in the golang example applications
 
 Deploy - deploys 
 
 
 ### Immutable Tags - AWS ECR 
+
+When enabled on a Repository, images tags can not be overwritten 
 
      2020-05-24 19:43:28 ⌚  strongjz-macbook in ~/Documents/code/go/src/github.com/strongjz/devsecopspipeline
     ± |master U:2 ✗| → docker tag nginx AWS_ACCOUNT_ID.dkr.ecr.us-west-2.amazonaws.com/golang_example:0.0.7
@@ -67,10 +72,13 @@ Deploy - deploys
 
 ### Run Time Security - Falco
 
+
+
 ### Logging - FireLens 
 
-### Alerting - Cloudwatch
 
+
+### Alerting - Cloudwatch
 
 
 
@@ -82,7 +90,7 @@ Sysdig Blog Falco EKS deployment https://sysdig.com/blog/multi-cluster-security-
 
 Issues with Docker and Code build https://github.com/aws/aws-codebuild-docker-images/issues/164
 
-Packer Build https://github.com/draios/sysdig-workshop-infra
+Ubuntu Packer Build https://github.com/draios/sysdig-workshop-infra
 
 EKS AMI Build https://github.com/strongjz/amazon-eks-ami
 
