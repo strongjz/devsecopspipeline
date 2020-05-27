@@ -18,7 +18,7 @@ phases:
       - make go_report
   post_build:
     commands:
-      - mv devsecopspipeline-*.html devsecopspipeline.html
+      - mv src-*.html devsecopspipeline.html
 artifacts:
   files:
     - devsecopspipeline.html
