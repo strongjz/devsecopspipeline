@@ -24,7 +24,7 @@ phases:
       - export AWS_EXPIRATION="$(echo ${CREDENTIALS} | jq -r '.Credentials.Expiration')"
       - echo "EKS Cluster Name ${EKS_CLUSTER_NAME}"
       - make kube_update
-      - make kube_deploy
+      - kubectl apply -f app.yml --kubeconfig /root/.kube/config
   post_build:
     commands:
       - kubectl get pods -l app=devsecopspipeline
