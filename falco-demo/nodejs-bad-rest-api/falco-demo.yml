@@ -5,7 +5,7 @@ metadata:
     app: falco-demo
   name: falco-demo
 spec:
-  replicas: 7
+  replicas: 1
   selector:
     matchLabels:
       app: falco-demo
