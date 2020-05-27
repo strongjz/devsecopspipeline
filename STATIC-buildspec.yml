@@ -6,7 +6,7 @@ phases:
     commands:
       - make go_version
       - apt-get update && apt-get -y install curl jq python3-pip python3-dev && pip3 install --upgrade awscli
-      - curl -sS -o $GOLANG_VERSION.linux-amd64.tar.gz https://dl.google.com/go/${GOLANG_VERSION}.linux-amd64.tar.gz
+      - curl -sS -o ${GOLANG_VERSION}.linux-amd64.tar.gz https://dl.google.com/go/${GOLANG_VERSION}.linux-amd64.tar.gz
       - tar -C /usr/local -xzf go${GOLANG_VERSION}.linux-amd64.tar.gz
       - export PATH=${PATH}:/usr/local/go/bin
       - export GOROOT=/usr/local/go
