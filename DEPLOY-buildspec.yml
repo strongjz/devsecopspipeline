@@ -27,6 +27,6 @@ phases:
       - kubectl apply -f app.yml
   post_build:
     commands:
-
+      - kubectl get pods -l app=devsecopspipeline
 artifacts:
   files: build.json

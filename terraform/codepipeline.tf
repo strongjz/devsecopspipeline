@@ -127,4 +127,22 @@ resource "aws_codepipeline" "codepipeline" {
       }
     }
   }
+
+  stage {
+    name = "Deploy"
+
+    action {
+      name     = "Deploy"
+      category = "Deploy"
+      owner    = "AWS"
+      provider = "CodeBuild"
+      input_artifacts = [
+        "source_output"]
+      version = "1"
+
+      configuration = {
+        ProjectName = "devsecops-austin-codebuild-DEPLOY"
+      }
+    }
+  }
 }
