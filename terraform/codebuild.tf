@@ -49,7 +49,8 @@ resource "aws_iam_role_policy" "devsecops-austin-codebuild" {
         "logs:CreateLogGroup",
         "logs:CreateLogStream",
         "logs:PutLogEvents",
-        "sts:AssumeRole"
+        "sts:AssumeRole",
+        "eks:*"
       ]
     },
     {

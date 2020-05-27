@@ -66,7 +66,7 @@ Test - runs any tests in the golang example applications
 Deploy - deploys the application via Code build, aws eks cli and kubectl 
 
 
-### Immutable Tags - AWS ECR 
+### Immutable Tags And CVE Scanning - AWS ECR 
 
 When enabled on a Repository, images tags can not be overwritten 
 
@@ -82,6 +82,8 @@ When enabled on a Repository, images tags can not be overwritten
     [DEPRECATION NOTICE] registry v2 schema1 support will be removed in an upcoming release. Please contact admins of the AWS_ACCOUNT_ID.dkr.ecr.us-west-2.amazonaws.com registry NOW to avoid future disruption. More information at https://docs.docker.com/registry/spec/deprecated-schema-v1/
     tag invalid: The image tag '0.0.7' already exists in the 'golang_example' repository and cannot be overwritten because the repository is immutable.
 
+
+https://www.youtube.com/watch?v=y6NI_K96DRs
 
 
 ### Run Time Security - Falco
