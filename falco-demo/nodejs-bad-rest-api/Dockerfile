@@ -1,10 +1,15 @@
 FROM node:latest
 
-COPY . .
+RUN apt-get -y update
 
 RUN mkdir -p /usr/src/app
-RUN apt-get -y update && apt-get -y install runit && cd /usr/src/app && npm install
+
+WORKDIR /usr/src/app
+
+COPY . .
+
+RUN npm install
 
 EXPOSE 8181
 
-CMD ["runsv /usr/src/app"]
+CMD ["node", "/usr/src/app/server.js"]

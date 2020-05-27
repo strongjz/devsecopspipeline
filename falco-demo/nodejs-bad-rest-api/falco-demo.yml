@@ -1,10 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: falco-demo
+  name: falco-demo
+spec:
+  replicas: 7
+  selector:
+    matchLabels:
+      app: falco-demo
+  template:
+    metadata:
+      labels:
+        app: falco-demo
+    spec:
+      containers:
+        - name: falco-demo
+          image: strongjz/falco-demo:latest
+          ports:
+            - containerPort: 8181
+---
 apiVersion: v1
-  kind: Pod
-  metadata:
-    name: falco-demo
-  spec:
-    containers:
-      - name: falco-demo
-        image: strongjz/falco-demo:latest
-        ports:
-          - containerPort: 8181
+kind: Service
+metadata:
+  name: falco-demo
+  labels:
+    app: falco-demo
+spec:
+  type: LoadBalancer
+  selector:
+    app: falco-demo
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8181
