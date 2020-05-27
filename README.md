@@ -86,6 +86,19 @@ When enabled on a Repository, images tags can not be overwritten
 
 ### Run Time Security - Falco
 
+Falco is Container Native Runtime Security
+
+"Falco is a behavioral activity monitor designed to detect anomalous activity in your applications. Falco audits a 
+system at the most fundamental level, the kernel. Falco then enriches this data with other input streams such as 
+container runtime metrics, and Kubernetes metrics. Falco lets you continuously monitor and detect container, 
+application, host, and network activity—all in one place—from one source of data, with one set of rules."
+
+Falco Demo Repo
+https://github.com/falcosecurity/evolution/tree/master/examples/nodejs-bad-rest-api
+
+This Demo runs a poorly configured NodeJS server and will generate a Falco alert when the server attempts to run a bash shell
+
+    falco          | 22:26:53.536628076: Warning Shell spawned in a container other than entrypoint (user=root container_id=6f339b8aeb0a container_name=express_server shell=bash parent=sh cmdline=bash )
 
 
 ### Logging - FireLens 
@@ -99,12 +112,7 @@ logs to target destinations."
 Fluentbit images are available here 
 https://github.com/aws/amazon-cloudwatch-logs-for-fluent-bit
 
-
-
 ### Alerting - Cloudwatch
-
-
-
 
 *Credits and Thank you to* 
 
