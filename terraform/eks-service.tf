@@ -36,7 +36,8 @@ resource "aws_iam_policy" "allow-eks-asg" {
               "autoscaling:SetDesiredCapacity",
               "autoscaling:TerminateInstanceInAutoScalingGroup",
               "autoscaling:DescribeTags",
-              "ec2:DescribeLaunchTemplateVersions"
+              "ec2:DescribeLaunchTemplateVersions",
+              "eks:*"
           ],
           "Resource": "*"
       }
