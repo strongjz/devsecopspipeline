@@ -15,7 +15,6 @@ falco:
     - /var/run/docker.sock:/host/var/run/docker.sock
     - /dev:/host/dev
     - /proc:/host/proc:ro
-    - /boot:/host/boot:ro
     - /lib/modules:/host/lib/modules:ro
     - /usr:/host/usr:ro
   tty: true

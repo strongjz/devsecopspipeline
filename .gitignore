@@ -20,3 +20,5 @@
 terraform/.terraform/
 golang_example
 reports/
+
+node_modules
