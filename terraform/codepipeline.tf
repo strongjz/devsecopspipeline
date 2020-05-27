@@ -133,7 +133,7 @@ resource "aws_codepipeline" "codepipeline" {
 
     action {
       name     = "Deploy"
-      category = "Deploy"
+      category = "Build"
       owner    = "AWS"
       provider = "CodeBuild"
       input_artifacts = [
