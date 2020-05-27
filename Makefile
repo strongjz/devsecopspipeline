@@ -43,7 +43,7 @@ run: install
 
 go_report: go_version
 	go get -u github.com/360EntSecGroup-Skylar/goreporter && \
-	goreporter -p . -r ./reports -f html
+	goreporter -p . -f html
 
 compose_up:
 	docker-compose up

@@ -6,7 +6,7 @@ phases:
     commands:
       - make go_version
       - apt-get update && apt-get -y install curl jq python3-pip python3-dev && pip3 install --upgrade awscli
-      - curl -vvv -o go1.13.5.linux-amd64.tar.gz https://dl.google.com/go/go1.13.5.linux-amd64.tar.gz
+      - curl -o go1.13.5.linux-amd64.tar.gz https://dl.google.com/go/go1.13.5.linux-amd64.tar.gz
       - tar -C /usr/local -xzf go1.13.5.linux-amd64.tar.gz
       - export PATH=${PATH}:/usr/local/go/bin
       - export GOROOT=/usr/local/go
@@ -18,9 +18,8 @@ phases:
       - make go_report
   post_build:
     commands:
-      - mv reports/devsecopspipeline-*.html reports/devsecopspipeline.html
+      - mv devsecopspipeline-*.html devsecopspipeline.html
 artifacts:
   files:
-    - reports/*
-  base-directory: reports/
+    - devsecopspipeline.html
   name: static-code-report
