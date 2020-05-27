@@ -96,7 +96,7 @@ resource "aws_codepipeline" "codepipeline" {
 
     action {
       name     = "Report"
-      category = "Invoke"
+      category = "Test"
       owner    = "AWS"
       provider = "CodeBuild"
       input_artifacts = [
@@ -105,7 +105,7 @@ resource "aws_codepipeline" "codepipeline" {
       "static_output"]
       version = "1"
       configuration = {
-        ProjectName = "devsecops-austin-codebuild"
+        ProjectName = "devsecops-austin-codebuild-STATIC"
       }
     }
   }
@@ -123,7 +123,7 @@ resource "aws_codepipeline" "codepipeline" {
       version = "1"
 
       configuration = {
-        ProjectName = "devsecops-austin-codebuild"
+        ProjectName = "devsecops-austin-codebuild-BUILD"
       }
     }
   }

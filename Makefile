@@ -1,6 +1,7 @@
 OUTPUT ?= golang_example
 REGISTRY ?= strongjz
 IMAGE ?= golang_example
+GOLANG_VERSION ?= 1.13.5
 AWS_REGION ?= us-west-2
 NODE_ROLE_NAME ?= ng-1
 DB_HOST ?= db
@@ -13,11 +14,14 @@ PORT ?= 8080
 FILE=VERSION.txt
 VERSION=`cat $(FILE)`
 EKS_KUBECTL_ROLE_NAME ?= devsecops-austin-codebuild
-EKS_CLUSTER_NAME ?= austin-devsecops-2
+EKS_CLUSTER_NAME ?= austin-devsecops
 
 export
 
 .PHONY: test clean install
+
+go_version:
+	echo ${GOLANG_VERSION}
 
 pretty:
 	go fmt
@@ -37,10 +41,9 @@ build: install
 run: install
 	go run main.go
 
-go_report:
+go_report: go_version
 	go get -u github.com/360EntSecGroup-Skylar/goreporter && \
 	goreporter -p . -r ./reports -f html
-
 
 compose_up:
 	docker-compose up
@@ -63,7 +66,6 @@ cluster:
 clean_cluster:
 	eksctl delete cluster -f eks-config.yml
 
-
 helm_update:
 	helm repo update && \
 	helm repo add stable https://kubernetes-charts.storage.googleapis.com/
@@ -82,7 +84,7 @@ check:
 	kubectl --help >/dev/null 2>&1 || echo "kubectl not installed" || exit 1
 
 codebuild:
-	./codebuild.sh -i ubuntu:latest -a .
+	./scripts/codebuild.sh -i ubuntu:latest -a .
 
 tf_clean:
 	cd terraform/ && \

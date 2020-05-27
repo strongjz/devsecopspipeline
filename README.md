@@ -21,20 +21,34 @@ Signed Commits Setup
 * Keybase
 * Github Account 
 
-Setup Keys 
+You can use this tutorial to setup gpg keys and use them with Git
 https://github.com/pstadler/keybase-gpg-github
 
+Developer workflow
 https://3musketeers.io/about/
+
+Using Make, Docker and docker-compose, the developer local workflow can match the workflow the CI/CD pipeline runs
+and workflow others will uses. It helps solves the "works on my machine" syndrome. 
+
+Kind - Kubernetes in Docker 
+
+Allows Developers to run local Kubernetes clusters and test before pushing. 
+
+https://kind.sigs.k8s.io/
 
 ### CVE Image Scanning - AWS ECR 
 
+List out images in ECR 
+    
+    aws ecr list-images --repository-name golang_example 
+    
 Scans can be ran on push or manually
 
-    aws ecr start-image-scan --repository-name name --image-id imageTag=tag_name --region us-east-2
+    aws ecr start-image-scan --repository-name golang_example --image-id imageTag=0.0.10 --region us-west-2
 
 Retrieve findings 
 
-    aws ecr describe-image-scan-findings --repository-name name --image-id imageTag=tag_name --region us-east-2
+    aws ecr describe-image-scan-findings --repository-name golang_example --image-id imageTag=0.0.10 --region us-west-2
 
 
 https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning.html
@@ -49,7 +63,7 @@ Invoke - Runs the Go Report Static Code analysis
 
 Test - runs any tests in the golang example applications
 
-Deploy - deploys 
+Deploy - deploys the application via Code build, aws eks cli and kubectl 
 
 
 ### Immutable Tags - AWS ECR 
@@ -76,13 +90,23 @@ When enabled on a Repository, images tags can not be overwritten
 
 ### Logging - FireLens 
 
+"FireLens gives you a simplified interface to filter logs at source, add useful metadata and send logs to almost any 
+destination. You can now stream logs directly to Amazon CloudWatch, Amazon Kinesis Data Firehose destinations such as 
+Amazon Elasticsearch, Amazon S3, Amazon Kinesis Data Streams and partner tools. Using Amazon ECS task definition 
+parameters, you can select destinations and optionally define filters for additional control and FireLens will ingest 
+logs to target destinations."
+
+Fluentbit images are available here 
+https://github.com/aws/amazon-cloudwatch-logs-for-fluent-bit
+
 
 
 ### Alerting - Cloudwatch
 
 
 
-Credits and Thank you to 
+
+*Credits and Thank you to* 
 
 @rnzsgh https://github.com/rnzsgh/eks-workshop-sample-api-service-go
 
