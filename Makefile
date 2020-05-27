@@ -63,6 +63,12 @@ docker_run:
 cluster:
 	eksctl create cluster -f eks-config.yml
 
+kube_update:
+	aws eks update-kubeconfig --name "${EKS_CLUSTER_NAME}"
+
+kube_deploy:
+	kubectl apply -f app.yml
+
 clean_cluster:
 	eksctl delete cluster -f eks-config.yml
 

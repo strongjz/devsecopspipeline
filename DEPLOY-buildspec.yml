@@ -23,8 +23,8 @@ phases:
       - export AWS_SESSION_TOKEN="$(echo ${CREDENTIALS} | jq -r '.Credentials.SessionToken')"
       - export AWS_EXPIRATION="$(echo ${CREDENTIALS} | jq -r '.Credentials.Expiration')"
       - echo "EKS Cluster Name ${EKS_CLUSTER_NAME}"
-      - aws eks update-kubeconfig --name "${EKS_CLUSTER_NAME}"
-      - kubectl apply -f app.yml
+      - make kube_update
+      - make kube_deploy
   post_build:
     commands:
       - kubectl get pods -l app=devsecopspipeline
