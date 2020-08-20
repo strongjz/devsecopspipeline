@@ -1,9 +1,9 @@
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 metadata:
-  name: austin-devsecops
+  name: devsecops
   region: us-west-2
-  version: "1.16"
+  version: "1.17"
 
 nodeGroups:
   - name: falco-ubuntu-node-group

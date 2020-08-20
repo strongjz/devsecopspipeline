@@ -13,8 +13,8 @@ MY_POD_IP ?= 1.1.1.1
 PORT ?= 8080
 FILE=VERSION.txt
 VERSION=`cat $(FILE)`
-EKS_KUBECTL_ROLE_NAME ?= devsecops-austin-codebuild
-EKS_CLUSTER_NAME ?= austin-devsecops
+EKS_KUBECTL_ROLE_NAME ?= devsecops-atlanta-codebuild
+EKS_CLUSTER_NAME ?= atlanta-devsecops
 
 export
 
@@ -52,7 +52,7 @@ docker_build:
 	docker build -t $(ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION) .
 
 ecr_auth:
-	$(eval $(aws ecr get-login --no-include-email))
+	$(shell aws ecr get-login --no-include-email)
 
 docker_push: ecr_auth
 	docker push $(ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION)
@@ -120,11 +120,13 @@ tf_destroy:
 falco_deploy: deploy-fluent-bit deploy-falco
 
 deploy-falco:
-	helm install falco --set falco.jsonOutput=true --set image.tag=0.17.1 stable/falco
+	helm repo add falcosecurity https://falcosecurity.github.io/charts; \
+	helm repo update; \
+	helm install falco --set falco.jsonOutput=true --set image.tag=0.24.0 falcosecurity/falco
 
 deploy-fluent-bit:
-	aws iam create-policy --policy-name EKS-CloudWatchLogs --policy-document file://./fluent-bit/aws/iam_role_policy.json
-	aws iam attach-role-policy --role-name $(NODE_ROLE_NAME) --policy-arn `aws iam list-policies | jq -r '.[][] | select(.PolicyName == "EKS-CloudWatchLogs") | .Arn'`
+	aws iam create-policy --policy-name EKS-CloudWatchLogs-"${EKS_CLUSTER_NAME}" --policy-document file://./fluent-bit/aws/iam_role_policy.json
+	aws iam attach-role-policy --role-name $(NODE_ROLE_NAME) --policy-arn `aws iam list-policies | jq -r '.[][] | select(.PolicyName == "EKS-CloudWatchLogs-${EKS_CLUSTER_NAME}") | .Arn'`
 	kubectl apply -f fluent-bit/kubernetes/
 
 falco_clean: clean-fluent-bit clean-falco

@@ -1,10 +1,10 @@
 resource "aws_s3_bucket" "codebuild_s3" {
-  bucket = "devsecops-austin-codebuild"
+  bucket = "devsecops-${var.name}-codebuild"
   acl    = "private"
 }
 
 resource "aws_iam_role" "devsecops-austin-codebuild" {
-  name = "devsecops-austin-codebuild"
+  name = "devsecops-${var.name}-codebuild"
 
   assume_role_policy = <<EOF
 {
@@ -95,8 +95,8 @@ POLICY
 }
 
 resource "aws_codebuild_project" "devsecops-austin-codebuild-STATIC" {
-  name          = "devsecops-austin-codebuild-STATIC"
-  description   = "devsecops-austin-codebuild-STATIC"
+  name          = "devsecops-${var.name}-codebuild-STATIC"
+  description   = "devsecops-${var.name}-codebuild-STATIC"
   build_timeout = "5"
   service_role  = aws_iam_role.devsecops-austin-codebuild.arn
 
@@ -144,13 +144,13 @@ resource "aws_codebuild_project" "devsecops-austin-codebuild-STATIC" {
   source_version = "master"
 
   tags = {
-    Environment = "devsecops-austin"
+    Environment = "devsecops-${var.name}"
   }
 }
 
 resource "aws_codebuild_project" "devsecops-austin-codebuild-BUILD" {
-  name          = "devsecops-austin-codebuild-BUILD"
-  description   = "devsecops-austin-codebuild-BUILD"
+  name          = "devsecops-${var.name}-codebuild-BUILD"
+  description   = "devsecops-${var.name}-codebuild-BUILD"
   build_timeout = "5"
   service_role  = aws_iam_role.devsecops-austin-codebuild.arn
 
@@ -197,13 +197,13 @@ resource "aws_codebuild_project" "devsecops-austin-codebuild-BUILD" {
   source_version = "master"
 
   tags = {
-    Environment = "devsecops-austin"
+    Environment = "devsecops-${var.name}"
   }
 }
 
 resource "aws_codebuild_project" "devsecops-austin-codebuild-DEPLOY" {
-  name          = "devsecops-austin-codebuild-DEPLOY"
-  description   = "devsecops-austin-codebuild-DEPLOY"
+  name          = "devsecops-${var.name}-codebuild-DEPLOY"
+  description   = "devsecops-${var.name}-codebuild-DEPLOY"
   build_timeout = "5"
   service_role  = aws_iam_role.devsecops-austin-codebuild.arn
 
@@ -250,16 +250,16 @@ resource "aws_codebuild_project" "devsecops-austin-codebuild-DEPLOY" {
   source_version = "master"
 
   tags = {
-    Environment = "devsecops-austin"
+    Environment = "devsecops-${var.name}"
   }
 }
 
 resource "aws_cloudwatch_log_group" "codebuild" {
-  name = "devsecops-austin-codebuild"
+  name = "devsecops-${var.name}-codebuild"
 
 }
 
 resource "aws_cloudwatch_log_stream" "codebuild" {
-  name           = "devsecops-austin-codebuild"
+  name           = "devsecops-${var.name}-codebuild"
   log_group_name = aws_cloudwatch_log_group.codebuild.name
 }

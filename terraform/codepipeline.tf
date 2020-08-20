@@ -1,10 +1,10 @@
 resource "aws_s3_bucket" "codepipeline_bucket" {
-  bucket = "austin-devsecops-code"
+  bucket = "${var.name}-devsecops-code"
   acl    = "private"
 }
 
 resource "aws_iam_role" "codepipeline_role" {
-  name = "test-role"
+  name = "${var.name}-test-role"
 
   assume_role_policy = <<EOF
 {
@@ -23,7 +23,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "codepipeline_policy" {
-  name = "codepipeline_policy"
+  name = "${var.name}-codepipeline_policy"
   role = aws_iam_role.codepipeline_role.id
 
   policy = <<EOF
@@ -57,11 +57,12 @@ EOF
 }
 
 data "aws_ssm_parameter" "github_token" {
-  name = "devsecops-austin"
+  name = "devsecops-${var.name}"
+
 }
 
 resource "aws_codepipeline" "codepipeline" {
-  name     = "austin-devsecops-pipeline"
+  name     = "${var.name}-devsecops-pipeline"
   role_arn = aws_iam_role.codepipeline_role.arn
 
   artifact_store {
@@ -105,7 +106,7 @@ resource "aws_codepipeline" "codepipeline" {
       "static_output"]
       version = "1"
       configuration = {
-        ProjectName = "devsecops-austin-codebuild-STATIC"
+        ProjectName = "devsecops-${var.name}-codebuild-STATIC"
       }
     }
   }
@@ -123,7 +124,7 @@ resource "aws_codepipeline" "codepipeline" {
       version = "1"
 
       configuration = {
-        ProjectName = "devsecops-austin-codebuild-BUILD"
+        ProjectName = "devsecops-${var.name}-codebuild-BUILD"
       }
     }
   }
@@ -141,7 +142,7 @@ resource "aws_codepipeline" "codepipeline" {
       version = "1"
 
       configuration = {
-        ProjectName = "devsecops-austin-codebuild-DEPLOY"
+        ProjectName = "devsecops-${var.name}-codebuild-DEPLOY"
       }
     }
   }
