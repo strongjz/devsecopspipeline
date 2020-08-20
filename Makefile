@@ -57,6 +57,12 @@ ecr_auth:
 docker_push: ecr_auth
 	docker push $(ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION)
 
+ecr_scan:
+	aws ecr start-image-scan --repository-name $(IMAGE) --image-id imageTag=$(VERSION)
+
+ecr_scan_findings:
+	aws ecr describe-image-scan-findings --repository-name $(IMAGE) --image-id imageTag=$(VERSION)
+
 docker_run:
 	docker run --env-file=.env -it --rm -p 8080:8080 -p 8090:8090 $(ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION)
 
