@@ -1,6 +1,6 @@
 OUTPUT ?= golang_example
 REGISTRY ?= strongjz
-IMAGE ?= golang_example
+IMAGE ?= golang_example-atlanta
 GOLANG_VERSION ?= 1.13.5
 AWS_REGION ?= us-west-2
 NODE_ROLE_NAME ?= ng-1
