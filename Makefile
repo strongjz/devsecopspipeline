@@ -55,7 +55,7 @@ ecr_auth:
 	$(shell aws ecr get-login --no-include-email)
 
 docker_push: ecr_auth
-	docker push $(ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION)
+	docker push $(ACCOUNT_IDACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION)
 
 ecr_scan:
 	aws ecr start-image-scan --repository-name $(IMAGE) --image-id imageTag=$(VERSION)
