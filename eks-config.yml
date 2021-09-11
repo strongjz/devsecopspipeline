@@ -3,16 +3,12 @@ kind: ClusterConfig
 metadata:
   name: devsecops
   region: us-west-2
-  version: "1.17"
+  version: "1.21"
 
 nodeGroups:
-  - name: falco-ubuntu-node-group
+  - name: node-group-1
     instanceType: m5.large
-    ami: ami-0ec78b587b1fe49d7
-    desiredCapacity: 1
-    ssh:
-      allow: true
-      publicKeyPath: mac-work
+    desiredCapacity: 3
     tags:
       nodegroup-role: worker
     iam:
