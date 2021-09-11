@@ -1,8 +1,11 @@
 OUTPUT ?= golang_example
 REGISTRY ?= strongjz
-IMAGE ?= golang_example
+NAME=houston
+IMAGE ?= golang_example-$(NAME)
+
 GOLANG_VERSION ?= 1.13.5
 AWS_REGION ?= us-west-2
+AWS_DEFAULT_REGION ?= us-west-2
 NODE_ROLE_NAME ?= ng-1
 DB_HOST ?= db
 DB_USER ?= postgres
@@ -16,14 +19,14 @@ EKS_KUBECTL_ROLE_NAME ?= devsecops-codebuild
 EKS_CLUSTER_NAME ?= devsecops
 REPO_INFO ?= $(shell git config --get remote.origin.url)
 COMMIT_SHA ?= git-$(shell git rev-parse --short HEAD)
-AWS_ACCOUNT_ID ?=$(shell aws sts get-caller-identity --query Account --output text)
+ACCOUNT_ID ?=$(shell aws sts get-caller-identity --query Account --output text)
 
 export
 
 .PHONY: test clean install
 
 aws_account:
-	echo ${AWS_ACCOUNT_ID}
+	echo ${ACCOUNT_ID}
 	
 go_version:
 	echo ${GOLANG_VERSION}
@@ -63,7 +66,7 @@ docker_build:
 ecr_auth:
 	$(shell aws ecr get-login --no-include-email)
 
-docker_push: ecr_auth
+docker_push: ecr_auth docker_build
 	docker push $(ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION)
 
 ecr_scan:

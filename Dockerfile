@@ -13,4 +13,6 @@ FROM golang:1.13-alpine
 COPY --from=builder /go/bin/app /go/bin/app
 
 EXPOSE 8080
+EXPOSE 8090
+
 CMD ["/go/bin/app"]

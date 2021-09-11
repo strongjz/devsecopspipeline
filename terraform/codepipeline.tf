@@ -56,9 +56,10 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
 EOF
 }
 
-data "aws_ssm_parameter" "github_token" {
-  name = "devsecops-${var.name}"
-
+resource "aws_codecommit_repository" "devsecops" {
+  repository_name = "${var.name}-devsecops-repo"
+  default_branch = "main"
+  description     = "This is the Sample App Repository for AWS DevSecOps Workshop"
 }
 
 resource "aws_codepipeline" "codepipeline" {
@@ -77,17 +78,15 @@ resource "aws_codepipeline" "codepipeline" {
     action {
       name     = "Source"
       category = "Source"
-      owner    = "ThirdParty"
-      provider = "GitHub"
+      owner    = "AWS"
+      provider = "CodeCommit"
       version  = "1"
       output_artifacts = [
       "source_output"]
 
       configuration = {
-        Owner      = "strongjz"
-        Repo       = "devsecopspipeline"
-        Branch     = "master"
-        OAuthToken = data.aws_ssm_parameter.github_token.value
+        BranchName = aws_codecommit_repository.devsecops.default_branch
+        RepositoryName = aws_codecommit_repository.devsecops.repository_name
       }
     }
   }
