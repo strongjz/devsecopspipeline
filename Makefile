@@ -13,8 +13,8 @@ MY_POD_IP ?= 1.1.1.1
 PORT ?= 8080
 FILE=VERSION.txt
 VERSION=`cat $(FILE)`
-EKS_KUBECTL_ROLE_NAME ?= devsecops-atlanta-codebuild
-EKS_CLUSTER_NAME ?= atlanta-devsecops
+EKS_KUBECTL_ROLE_NAME ?= devsecops-codebuild
+EKS_CLUSTER_NAME ?= devsecops
 
 export
 
@@ -55,7 +55,7 @@ ecr_auth:
 	$(shell aws ecr get-login --no-include-email)
 
 docker_push: ecr_auth
-	docker push $(ACCOUNT_IDACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION)
+	docker push $(ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION)
 
 ecr_scan:
 	aws ecr start-image-scan --repository-name $(IMAGE) --image-id imageTag=$(VERSION)

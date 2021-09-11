@@ -17,7 +17,7 @@
 .env
 
 .idea/
-terraform/.terraform/
+../aws-container-devsecops/content/pipeline/pipelines.files/terraform/.terraform/
 golang_example
 reports/
 
