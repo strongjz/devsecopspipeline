@@ -1,3 +1,6 @@
+terraform/.terraform.lock.hcl
+terraform/.terraform/
+
 # Binaries for programs and plugins
 *.exe
 *.exe~

@@ -1,6 +1,6 @@
 OUTPUT ?= golang_example
 REGISTRY ?= strongjz
-IMAGE ?= golang_example-atlanta
+IMAGE ?= golang_example
 GOLANG_VERSION ?= 1.13.5
 AWS_REGION ?= us-west-2
 NODE_ROLE_NAME ?= ng-1
@@ -11,15 +11,20 @@ DB_PORT ?= 5432
 MY_NODE_NAME ?= test
 MY_POD_IP ?= 1.1.1.1
 PORT ?= 8080
-FILE=VERSION.txt
-VERSION=`cat $(FILE)`
+VERSION=$(shell cat VERSION.txt)
 EKS_KUBECTL_ROLE_NAME ?= devsecops-codebuild
 EKS_CLUSTER_NAME ?= devsecops
+REPO_INFO ?= $(shell git config --get remote.origin.url)
+COMMIT_SHA ?= git-$(shell git rev-parse --short HEAD)
+AWS_ACCOUNT_ID ?=$(shell aws sts get-caller-identity --query Account --output text)
 
 export
 
 .PHONY: test clean install
 
+aws_account:
+	echo ${AWS_ACCOUNT_ID}
+	
 go_version:
 	echo ${GOLANG_VERSION}
 
@@ -45,11 +50,15 @@ go_report: go_version
 	go get -u github.com/360EntSecGroup-Skylar/goreporter && \
 	goreporter -p . -f html
 
+test_local:
+	curl localhost:8080/ 
+	curl localhost:8080/data
+	
 compose_up:
 	docker-compose up
 
 docker_build:
-	docker build -t $(ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION) .
+	docker build -t $(shell aws sts get-caller-identity --query Account --output text).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION) .
 
 ecr_auth:
 	$(shell aws ecr get-login --no-include-email)
@@ -79,9 +88,9 @@ clean_cluster:
 	eksctl delete cluster -f eks-config.yml
 
 helm_update:
-	helm repo update && \
-	helm repo add stable https://kubernetes-charts.storage.googleapis.com/
-
+	helm repo add stable https://charts.helm.sh/stable && \
+	helm repo update
+	
 prom: helm_update
 	kubectl apply -f namespace_prometheus.yml && \
 	helm install prometheus stable/prometheus \
@@ -103,7 +112,7 @@ tf_clean:
 	rm -rf .terraform \
 	rm -rf plan.out
 
-tf_init:
+tf_init: 
 	cd terraform/ && \
 	terraform init
 
