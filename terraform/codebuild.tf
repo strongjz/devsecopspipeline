@@ -3,7 +3,7 @@ resource "aws_s3_bucket" "codebuild_s3" {
   acl    = "private"
 }
 
-resource "aws_iam_role" "devsecops-austin-codebuild" {
+resource "aws_iam_role" "devsecops-codebuild" {
   name = "devsecops-${var.name}-codebuild"
 
   assume_role_policy = <<EOF
@@ -24,17 +24,17 @@ EOF
 
 resource "aws_iam_role_policy_attachment" "AmazonEKSClusterPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-  role       = aws_iam_role.devsecops-austin-codebuild.name
+  role       = aws_iam_role.devsecops-codebuild.name
 }
 
 resource "aws_iam_role_policy_attachment" "AmazonEKSServicePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
-  role       = aws_iam_role.devsecops-austin-codebuild.name
+  role       = aws_iam_role.devsecops-codebuild.name
 }
 
 
-resource "aws_iam_role_policy" "devsecops-austin-codebuild" {
-  role = aws_iam_role.devsecops-austin-codebuild.name
+resource "aws_iam_role_policy" "devsecops-codebuild" {
+  role = aws_iam_role.devsecops-codebuild.name
 
   policy = <<POLICY
 {
@@ -94,11 +94,11 @@ resource "aws_iam_role_policy" "devsecops-austin-codebuild" {
 POLICY
 }
 
-resource "aws_codebuild_project" "devsecops-austin-codebuild-STATIC" {
+resource "aws_codebuild_project" "devsecops-codebuild-STATIC" {
   name          = "devsecops-${var.name}-codebuild-STATIC"
   description   = "devsecops-${var.name}-codebuild-STATIC"
   build_timeout = "5"
-  service_role  = aws_iam_role.devsecops-austin-codebuild.arn
+  service_role  = aws_iam_role.devsecops-codebuild.arn
 
   artifacts {
     type = "CODEPIPELINE"
@@ -120,7 +120,7 @@ resource "aws_codebuild_project" "devsecops-austin-codebuild-STATIC" {
 
     environment_variable {
       name  = "EKS_KUBECTL_ROLE_NAME"
-      value = aws_iam_role.devsecops-austin-codebuild.name
+      value = aws_iam_role.devsecops-codebuild.name
     }
   }
 
@@ -148,11 +148,11 @@ resource "aws_codebuild_project" "devsecops-austin-codebuild-STATIC" {
   }
 }
 
-resource "aws_codebuild_project" "devsecops-austin-codebuild-BUILD" {
+resource "aws_codebuild_project" "devsecops-codebuild-BUILD" {
   name          = "devsecops-${var.name}-codebuild-BUILD"
   description   = "devsecops-${var.name}-codebuild-BUILD"
   build_timeout = "5"
-  service_role  = aws_iam_role.devsecops-austin-codebuild.arn
+  service_role  = aws_iam_role.devsecops-codebuild.arn
 
   artifacts {
     type = "CODEPIPELINE"
@@ -173,7 +173,7 @@ resource "aws_codebuild_project" "devsecops-austin-codebuild-BUILD" {
 
     environment_variable {
       name  = "EKS_KUBECTL_ROLE_NAME"
-      value = aws_iam_role.devsecops-austin-codebuild.name
+      value = aws_iam_role.devsecops-codebuild.name
     }
   }
 
@@ -201,11 +201,11 @@ resource "aws_codebuild_project" "devsecops-austin-codebuild-BUILD" {
   }
 }
 
-resource "aws_codebuild_project" "devsecops-austin-codebuild-DEPLOY" {
+resource "aws_codebuild_project" "devsecops-codebuild-DEPLOY" {
   name          = "devsecops-${var.name}-codebuild-DEPLOY"
   description   = "devsecops-${var.name}-codebuild-DEPLOY"
   build_timeout = "5"
-  service_role  = aws_iam_role.devsecops-austin-codebuild.arn
+  service_role  = aws_iam_role.devsecops-codebuild.arn
 
   artifacts {
     type = "CODEPIPELINE"
@@ -226,7 +226,7 @@ resource "aws_codebuild_project" "devsecops-austin-codebuild-DEPLOY" {
 
     environment_variable {
       name  = "EKS_KUBECTL_ROLE_NAME"
-      value = aws_iam_role.devsecops-austin-codebuild.name
+      value = aws_iam_role.devsecops-codebuild.name
     }
   }
 
