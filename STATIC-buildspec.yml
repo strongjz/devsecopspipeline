@@ -4,7 +4,6 @@ version: 0.2
 phases:
   install:
     commands:
-      - make go_version
       - yum -y update && yum install -y install curl jq
       - curl -o go1.17.1.linux-amd64.tar.gz https://dl.google.com/go/go1.17.1.linux-amd64.tar.gz
       - tar -C /usr/local -xzf go1.17.1.linux-amd64.tar.gz
