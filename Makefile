@@ -50,8 +50,8 @@ run: install
 	go run main.go
 
 go_report: 
-	go get -u github.com/360EntSecGroup-Skylar/goreporter && \
-	goreporter -p . -f html
+	go get -u github.com/golangci/golangci-lint/cmd/golangci-lint@v1.42.1 && \
+	golangci-lint .
 
 go_sec: 
 	go get -u github.com/securego/gosec/v2/cmd/gosec
