@@ -50,6 +50,7 @@ resource "aws_iam_role_policy" "devsecops-codebuild" {
         "logs:CreateLogStream",
         "logs:PutLogEvents",
         "sts:AssumeRole",
+        "codebuild:*",
         "eks:*"
       ]
     },

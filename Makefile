@@ -35,7 +35,7 @@ pretty:
 	go fmt
 
 test:
-	go test ./...
+	go test
 
 clean:
 	rm -f $(OUTPUT)
