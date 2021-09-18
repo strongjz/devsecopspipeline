@@ -55,7 +55,7 @@ go_report: go_version
 
 go_sec: go_version
 	go get -u github.com/securego/gosec/v2/cmd/gosec
-	time gosec ./...
+	GO111MODULE=on gosec .
 
 test_local:
 	curl localhost:8080/ 
