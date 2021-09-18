@@ -4,11 +4,16 @@ metadata:
   name: devsecops
   region: us-west-2
   version: "1.21"
-
-nodeGroups:
+cloudWatch:
+  clusterLogging:
+    enableTypes: ["*"]
+managedNodeGroups:
   - name: node-group-1
     instanceType: m5.large
     desiredCapacity: 3
+    minSize: 2
+    maxSize: 4
+    volumeSize: 30
     tags:
       nodegroup-role: worker
     iam:

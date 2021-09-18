@@ -49,11 +49,11 @@ build: install
 run: install
 	go run main.go
 
-go_report: go_version
+go_report: 
 	go get -u github.com/360EntSecGroup-Skylar/goreporter && \
 	goreporter -p . -f html
 
-go_sec: go_version
+go_sec: 
 	go get -u github.com/securego/gosec/v2/cmd/gosec
 	GO111MODULE=on gosec .
 
