@@ -46,8 +46,7 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
     {
       "Effect": "Allow",
       "Action": [
-        "codebuild:BatchGetBuilds",
-        "codebuild:StartBuild",
+        "codebuild:*",
         "codecommit:*"
       ],
       "Resource": "*"
