@@ -62,7 +62,7 @@ go_report:
 
 go_sec: 
 	go get -u github.com/securego/gosec/v2/cmd/gosec
-	GO111MODULE=on gosec .
+	GO111MODULE=on gosec -fmt=json -out=security.json -stdout .
 
 test_local:
 	curl localhost:8080/ 
