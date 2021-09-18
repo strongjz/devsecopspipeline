@@ -20,6 +20,9 @@ spec:
           ports:
             - containerPort: 8080
           env:
+            - name: VERSION
+              value: CONTAINERIMAGE
+            - name: MY_POD_NAME
             - name: MY_NODE_NAME
               valueFrom:
                 fieldRef:
@@ -48,6 +51,7 @@ metadata:
   labels:
     app: devsecopspipeline
 spec:
+  type: LoadBalancer
   selector:
     app: devsecopspipeline
   ports:
