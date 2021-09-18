@@ -55,7 +55,10 @@ go_report:
 	cd goreporter/ && \
 	go mod init github.com/360EntSecGroup-Skylar/goreporter && \
 	go build && \
-	./goreporter -p ../ -f html
+	ls -la
+	chmod u+x ./goreporter
+	cd ..
+	./goreporter/goreporter -p . -f html
 
 go_sec: 
 	go get -u github.com/securego/gosec/v2/cmd/gosec
