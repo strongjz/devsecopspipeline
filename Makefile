@@ -50,8 +50,12 @@ run: install
 	go run main.go
 
 go_report: 
-	go get -u github.com/golangci/golangci-lint/cmd/golangci-lint@v1.42.1 && \
-	golangci-lint .
+	rm -rf goreporter/
+	git clone https://github.com/qax-os/goreporter.git && \
+	cd goreporter/ && \
+	go mod init github.com/360EntSecGroup-Skylar/goreporter && \
+	go build && \
+	./goreporter -p ../ -f html
 
 go_sec: 
 	go get -u github.com/securego/gosec/v2/cmd/gosec
