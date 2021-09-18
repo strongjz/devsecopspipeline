@@ -53,6 +53,10 @@ go_report: go_version
 	go get -u github.com/360EntSecGroup-Skylar/goreporter && \
 	goreporter -p . -f html
 
+go_sec: go_version
+	go get -u github.com/securego/gosec/v2/cmd/gosec
+	time gosec ./...
+
 test_local:
 	curl localhost:8080/ 
 	curl localhost:8080/data
@@ -97,8 +101,8 @@ helm_update:
 prom: helm_update
 	kubectl apply -f namespace_prometheus.yml && \
 	helm install prometheus stable/prometheus \
-        --namespace prometheus \
-        --set alertmanager.persistentVolume.storageClass="gp2",server.persistentVolume.storageClass="gp2"
+		--namespace prometheus \
+		--set alertmanager.persistentVolume.storageClass="gp2",server.persistentVolume.storageClass="gp2"
 
 check:
 	terraform -v  >/dev/null 2>&1 || echo "Terraform not installed" || exit 1 && \

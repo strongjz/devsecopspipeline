@@ -16,6 +16,7 @@ phases:
       - export PATH=${PATH}:/usr/local/go/bin
       - export GOROOT=/usr/local/go
       - make go_report
+      -
   post_build:
     commands:
       - mv src-*.html devsecopspipeline.html
