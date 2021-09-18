@@ -92,6 +92,10 @@ docker_run:
 cluster:
 	eksctl create cluster -f eks-config.yml
 
+cluster_iam: 
+	eksctl create iamidentitymapping --cluster devsecops --arn arn:aws:iam::$(ACCOUNT_ID):role/devsecops-$(NAME)-codebuild   --username admin \
+  --group system:masters
+	
 kube_update:
 	aws eks update-kubeconfig --name "${EKS_CLUSTER_NAME}"
 
