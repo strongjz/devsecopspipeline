@@ -23,9 +23,9 @@ artifacts:
   files:
     - devsecopspipeline.html
     - security.json
+  name: static-code-report
 reports:
   security-report:
     files:
     - "security.json"
     file-format: "JSON"
-  name: static-code-report
