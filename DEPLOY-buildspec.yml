@@ -10,9 +10,6 @@ phases:
       - yum -y update && yum -y install jq python3-pip python3-dev && pip3 install --upgrade awscli
   pre_build:
     commands:
-      - TAG="$REPOSITORY_NAME.$REPOSITORY_BRANCH.$ENVIRONMENT_NAME.$(date +%Y-%m-%d.%H.%M.%S).$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
-      - sed -i 's@CONTAINER_IMAGE@'"$REPOSITORY_URI:$TAG"'@' app.yml
-      - cat app.yml
       - $(aws ecr get-login --no-include-email)
       - export KUBECONFIG=$HOME/.kube/config
   build:
@@ -24,7 +21,7 @@ phases:
       - export AWS_EXPIRATION="$(echo ${CREDENTIALS} | jq -r '.Credentials.Expiration')"
       - echo "EKS Cluster Name ${EKS_CLUSTER_NAME}"
       - make kube_update
-      - kubectl apply -f app.yml --kubeconfig /root/.kube/config
+      - make kube_deploy 
   post_build:
     commands:
       - kubectl get pods -l app=devsecopspipeline

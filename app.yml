@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: devsecopspipeline
-          image: s@CONTAINER_IMAGE@
+          image: CONTAINERIMAGE
           ports:
             - containerPort: 8080
           env:

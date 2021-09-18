@@ -27,9 +27,6 @@ export
 
 aws_account:
 	echo ${ACCOUNT_ID}
-	
-go_version:
-	echo ${GOLANG_VERSION}
 
 pretty:
 	go fmt
@@ -100,7 +97,7 @@ kube_update:
 	aws eks update-kubeconfig --name "${EKS_CLUSTER_NAME}"
 
 kube_deploy:
-	kubectl apply -f app.yml
+	awk -v IMAGE="$(ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION)" '{sub(/CONTAINERIMAGE/, IMAGE); print}' app.yml | kubectl apply -f - 
 
 clean_cluster:
 	eksctl delete cluster -f eks-config.yml
