@@ -14,14 +14,16 @@ phases:
       - export KUBECONFIG=$HOME/.kube/config
   build:
     commands:
+      - export KUBECONFIG=$HOME/.kube/config
       - CREDENTIALS=$(aws sts assume-role --role-arn arn:aws:iam::$ACCOUNT_ID:role/$EKS_KUBECTL_ROLE_NAME --role-session-name codebuild-kubectl --duration-seconds 900)
       - export AWS_ACCESS_KEY_ID="$(echo ${CREDENTIALS} | jq -r '.Credentials.AccessKeyId')"
       - export AWS_SECRET_ACCESS_KEY="$(echo ${CREDENTIALS} | jq -r '.Credentials.SecretAccessKey')"
       - export AWS_SESSION_TOKEN="$(echo ${CREDENTIALS} | jq -r '.Credentials.SessionToken')"
       - export AWS_EXPIRATION="$(echo ${CREDENTIALS} | jq -r '.Credentials.Expiration')"
       - echo "EKS Cluster Name ${EKS_CLUSTER_NAME}"
-      - make kube_update
-      - make kube_deploy 
+      - kubectl cluster-info
+      - GIT_DISCOVERY_ACROSS_FILESYSTEM=1 make kube_update
+      - GIT_DISCOVERY_ACROSS_FILESYSTEM=1 make kube_deploy 
   post_build:
     commands:
       - kubectl get pods -l app=devsecopspipeline
