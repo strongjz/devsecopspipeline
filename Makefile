@@ -6,7 +6,7 @@ IMAGE ?= golang_example-$(NAME)
 GOLANG_VERSION ?= 1.13.5
 AWS_REGION ?= us-west-2
 AWS_DEFAULT_REGION ?= us-west-2
-NODE_ROLE_NAME ?= ng-1
+NODE_ROLE_NAME ?= node-group-1
 DB_HOST ?= db
 DB_USER ?= postgres
 DB_NAME ?= pqgotest
@@ -152,11 +152,13 @@ falco_deploy: deploy-fluent-bit deploy-falco
 deploy-falco:
 	helm repo add falcosecurity https://falcosecurity.github.io/charts; \
 	helm repo update; \
-	helm install falco --set falco.jsonOutput=true --set image.tag=0.24.0 falcosecurity/falco
+	helm install -f falco falcosecurity/falco
 
+deploy-fluent-iam:
+	aws iam create-policy --policy-name EKS-CloudWatchLogs-"${EKS_CLUSTER_NAME}" --policy-document file://./fluent-bit/aws/iam_role_policy.json || true
+	aws iam attach-role-policy --role-name $(NODE_ROLE_NAME) --policy-arn `aws iam list-policies | jq -r '.[][] | select(.PolicyName == "EKS-CloudWatchLogs-${EKS_CLUSTER_NAME}") | .Arn'` || true 
+	
 deploy-fluent-bit:
-	aws iam create-policy --policy-name EKS-CloudWatchLogs-"${EKS_CLUSTER_NAME}" --policy-document file://./fluent-bit/aws/iam_role_policy.json
-	aws iam attach-role-policy --role-name $(NODE_ROLE_NAME) --policy-arn `aws iam list-policies | jq -r '.[][] | select(.PolicyName == "EKS-CloudWatchLogs-${EKS_CLUSTER_NAME}") | .Arn'`
 	kubectl apply -f fluent-bit/kubernetes/
 
 falco_clean: clean-fluent-bit clean-falco
