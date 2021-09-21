@@ -97,7 +97,8 @@ kube_update:
 	aws eks update-kubeconfig --name "${EKS_CLUSTER_NAME}" --region ${AWS_REGION}
 
 kube_deploy: kube_update
-	awk -v IMAGE="$(ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION)" '{sub(/CONTAINERIMAGE/, IMAGE); print}' app.yml | kubectl apply -f - 
+	awk -v IMAGE="$(ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION)" '{sub(/CONTAINERIMAGE/, IMAGE); print> "app.yml"}' app.yml
+	kubectl apply -f app.yml
 
 clean_cluster:
 	eksctl delete cluster -f eks-config.yml
