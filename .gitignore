@@ -26,3 +26,7 @@ golang_example
 reports/
 
 node_modules
+
+devsecopspipeline-*.html
+goreporter/
+
