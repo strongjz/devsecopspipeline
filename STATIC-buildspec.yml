@@ -5,10 +5,10 @@ phases:
   install:
     commands:
       - yum -y update && yum install -y install curl jq
-      - curl -o go1.17.1.linux-amd64.tar.gz https://dl.google.com/go/go1.17.1.linux-amd64.tar.gz
-      - tar -C /usr/local -xzf go1.17.1.linux-amd64.tar.gz
-      - export PATH=${PATH}:/usr/local/go/bin
-      - export GOROOT=/usr/local/go
+      - curl -o go1.17.5.linux-amd64.tar.gz https://go.dev/dl/go1.17.5.linux-amd64.tar.gz -vvv -L
+      - shasum -a 256 -c <<< 'bd78114b0d441b029c8fe0341f4910370925a4d270a6a590668840675b0c653e  go1.17.5.linux-amd64.tar.gz'
+      - rm -rf /usr/local/go && tar -C /usr/local -xzf go1.17.5.linux-amd64.tar.gz
+      - export PATH=/usr/local/go/bin:$PATH
       - go version
   build:
     commands:

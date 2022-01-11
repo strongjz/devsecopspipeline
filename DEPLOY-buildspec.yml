@@ -10,15 +10,9 @@ phases:
       - yum -y update && yum -y install jq python3-pip python3-dev && pip3 install --upgrade awscli
   pre_build:
     commands:
-      - $(aws ecr get-login --no-include-email)
+      - make ecr_auth
       - export KUBECONFIG=$HOME/.kube/config
       - export KUBECONFIG=$HOME/.kube/config
-      - CREDENTIALS=$(aws sts assume-role --role-arn arn:aws:iam::$ACCOUNT_ID:role/$EKS_KUBECTL_ROLE_NAME --role-session-name codebuild-kubectl --duration-seconds 900)
-      - export AWS_ACCESS_KEY_ID="$(echo ${CREDENTIALS} | jq -r '.Credentials.AccessKeyId')"
-      - export AWS_SECRET_ACCESS_KEY="$(echo ${CREDENTIALS} | jq -r '.Credentials.SecretAccessKey')"
-      - export AWS_SESSION_TOKEN="$(echo ${CREDENTIALS} | jq -r '.Credentials.SessionToken')"
-      - export AWS_EXPIRATION="$(echo ${CREDENTIALS} | jq -r '.Credentials.Expiration')"
-      - echo "EKS Cluster Name ${EKS_CLUSTER_NAME}"
       - GIT_DISCOVERY_ACROSS_FILESYSTEM=1 make kube_update
       - kubectl cluster-info
   build:
