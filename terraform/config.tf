@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
-    bucket = "devsecops-james-strong"
-    key    = "devsecops-james-strong/terraform_state"
+    bucket = "devsecops-codemash-2022"
+    key    = "devsecops-codemash-2022/terraform_state"
     region = "us-west-2"
   }
 }
