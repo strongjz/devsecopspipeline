@@ -1,6 +1,6 @@
 OUTPUT ?= golang_example
 REGISTRY ?= strongjz
-NAME=houston
+NAME=codemash
 IMAGE ?= golang_example-$(NAME)
 
 GOLANG_VERSION ?= 1.13.5
