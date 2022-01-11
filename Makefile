@@ -158,7 +158,7 @@ deploy-falco:
 
 deploy-fluent-iam:
 	aws iam create-policy --policy-name EKS-CloudWatchLogs-"${EKS_CLUSTER_NAME}" --policy-document file://./fluent-bit/aws/iam_role_policy.json || true
-	aws iam attach-role-policy --role-name $(NODE_ROLE_NAME) --policy-arn `aws iam list-policies | jq -r '.[][] | select(.PolicyName == "EKS-CloudWatchLogs-${EKS_CLUSTER_NAME}") | .Arn'` || true 
+	aws iam attach-role-policy --role-name $(shell aws eks describe-nodegroup --cluster-name devsecops --nodegroup-name node-group-1 | jq .nodegroup.nodeRole -r | cut -d/ -f2) --policy-arn `aws iam list-policies | jq -r '.[][] | select(.PolicyName == "EKS-CloudWatchLogs-${EKS_CLUSTER_NAME}") | .Arn'` || true
 	
 deploy-fluent-bit:
 	kubectl apply -f fluent-bit/kubernetes/
