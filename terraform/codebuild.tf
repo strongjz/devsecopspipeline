@@ -89,6 +89,15 @@ resource "aws_iam_role_policy" "devsecops-codebuild" {
         "${aws_s3_bucket.codepipeline_bucket.arn}",
         "${aws_s3_bucket.codepipeline_bucket.arn}/*"
       ]
+    },
+    {
+      "Effect": "Allow",
+      "Resource": [
+        "${aws_kms_key.cosign.arn}"
+      ],
+      "Action": [
+        "kms:*"
+      ]
     }
   ]
 }
@@ -115,13 +124,8 @@ resource "aws_codebuild_project" "devsecops-codebuild-STATIC" {
 
     environment_variable {
       name  = "ACCOUNT_ID"
-      value = "ACCOUNT_ID"
-      type  = "PARAMETER_STORE"
-    }
-
-    environment_variable {
-      name  = "EKS_KUBECTL_ROLE_NAME"
-      value = aws_iam_role.devsecops-codebuild.name
+      value = data.aws_caller_identity.current.account_id
+      type  = "PLAINTEXT"
     }
   }
 
@@ -168,13 +172,8 @@ resource "aws_codebuild_project" "devsecops-codebuild-BUILD" {
 
     environment_variable {
       name  = "ACCOUNT_ID"
-      value = "ACCOUNT_ID"
-      type  = "PARAMETER_STORE"
-    }
-
-    environment_variable {
-      name  = "EKS_KUBECTL_ROLE_NAME"
-      value = aws_iam_role.devsecops-codebuild.name
+      value = data.aws_caller_identity.current.account_id
+      type  = "PLAINTEXT"
     }
   }
 
@@ -221,13 +220,8 @@ resource "aws_codebuild_project" "devsecops-codebuild-DEPLOY" {
 
     environment_variable {
       name  = "ACCOUNT_ID"
-      value = "ACCOUNT_ID"
-      type  = "PARAMETER_STORE"
-    }
-
-    environment_variable {
-      name  = "EKS_KUBECTL_ROLE_NAME"
-      value = aws_iam_role.devsecops-codebuild.name
+      value = data.aws_caller_identity.current.account_id
+      type  = "PLAINTEXT"
     }
   }
 

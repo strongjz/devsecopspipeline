@@ -57,9 +57,9 @@ go_report:
 	cd ..
 	./goreporter/goreporter -p . -f html
 
-go_sec: 
-	go get -u github.com/securego/gosec/v2/cmd/gosec
-	GO111MODULE=on gosec -fmt=json -out=security.json -stdout .
+go_sec:
+	wget -O - -q https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s v2.9.5
+	./bin/gosec -fmt=json -out=security.json -stdout .
 
 test_local:
 	curl localhost:8080/ 

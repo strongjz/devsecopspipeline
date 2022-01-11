@@ -34,19 +34,16 @@ require (
 	github.com/reconquest/barely v0.0.0-20160729074550-0f12e3bb2e13 // indirect
 	github.com/reconquest/loreley v0.0.0-20200601121626-621c1cd37fd1 // indirect
 	github.com/sanposhiho/wastedassign/v2 v2.0.7 // indirect
-	github.com/securego/gosec/v2 v2.8.1 // indirect
+	github.com/securego/gosec/v2 v2.9.5 // indirect
 	github.com/spf13/cast v1.4.1 // indirect
 	github.com/ssgreg/nlreturn/v2 v2.2.1 // indirect
 	github.com/stretchr/objx v0.3.0 // indirect
 	github.com/strongjz/go_example_app v0.0.7
 	github.com/tetafro/godot v1.4.10 // indirect
 	github.com/timakin/bodyclose v0.0.0-20210704033933-f49887972144 // indirect
-	golang.org/x/crypto v0.0.0-20210915214749-c084706c2272 // indirect
-	golang.org/x/mod v0.5.0 // indirect
-	golang.org/x/sys v0.0.0-20210917161153-d61c044b1678 // indirect
+	golang.org/x/sys v0.0.0-20220110181412-a018aaa089fe // indirect
 	golang.org/x/term v0.0.0-20210916214954-140adaaadfaf // indirect
 	golang.org/x/text v0.3.7 // indirect
-	golang.org/x/tools v0.1.6 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/ini.v1 v1.63.2 // indirect
 	mvdan.cc/lint v0.0.0-20170908181259-adc824a0674b // indirect
