@@ -139,15 +139,15 @@ tf_get:
 
 tf_plan:
 	cd terraform/ && \
-	terraform plan -out=plan.out
+	terraform plan -var="name=${NAME}" -out=plan.out
 
 tf_apply:
 	cd terraform/ && \
-	terraform apply -auto-approve
+	terraform apply -var="name=${NAME}" -auto-approve
 
 tf_destroy:
 	cd terraform/ && \
-	terraform destroy
+	terraform -var="name=${NAME}" destroy
 
 falco_deploy: deploy-fluent-bit deploy-falco
 
