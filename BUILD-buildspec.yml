@@ -17,12 +17,12 @@ phases:
       - make ecr_auth
   build:
     commands:
-      - make docker_build VERSION=$CODEBUILD_RESOLVED_SOURCE_VERSION
+      - make docker_build
 
   post_build:
     commands:
-      - make docker_push VERSION=$CODEBUILD_RESOLVED_SOURCE_VERSION
-      - make sign VERSION=$CODEBUILD_RESOLVED_SOURCE_VERSION
-      - make verify VERSION=$CODEBUILD_RESOLVED_SOURCE_VERSION
+      - make docker_push
+      - make sign
+      - make verify
 artifacts:
   files: build.json
