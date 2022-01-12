@@ -147,7 +147,7 @@ tf_apply:
 
 tf_destroy:
 	cd terraform/ && \
-	terraform -var="name=${NAME}" destroy
+	terraform destroy -var="name=${NAME}"
 
 falco_deploy: deploy-fluent-bit deploy-falco
 
@@ -157,8 +157,8 @@ deploy-falco:
 	helm install --generate-name falcosecurity/falco
 
 deploy-fluent-iam:
-	aws iam create-policy --policy-name EKS-CloudWatchLogs-"${EKS_CLUSTER_NAME}" --policy-document file://./fluent-bit/aws/iam_role_policy.json || true
-	aws iam attach-role-policy --role-name $(shell aws eks describe-nodegroup --cluster-name $(NAME) --nodegroup-name node-group-1 | jq .nodegroup.nodeRole -r | cut -d/ -f2) --policy-arn `aws iam list-policies | jq -r '.[][] | select(.PolicyName == "EKS-CloudWatchLogs-${EKS_CLUSTER_NAME}") | .Arn'` || true
+	aws iam create-policy --policy-name EKS-CloudWatchLogs-"${EKS_CLUSTER_NAME}" --policy-document file://./fluent-bit/aws/iam_role_policy.json --region $(AWS_REGION)|| true
+	aws iam attach-role-policy --role-name $(shell aws eks describe-nodegroup --cluster-name $(NAME) --nodegroup-name node-group-1 --region $(AWS_REGION) | jq .nodegroup.nodeRole -r | cut -d/ -f2) --policy-arn `aws iam list-policies --region $(AWS_REGION) | jq -r '.[][] | select(.PolicyName == "EKS-CloudWatchLogs-${EKS_CLUSTER_NAME}") | .Arn'` || true
 	
 deploy-fluent-bit:
 	kubectl apply -f fluent-bit/kubernetes/
