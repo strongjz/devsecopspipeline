@@ -154,7 +154,7 @@ falco_deploy: deploy-fluent-bit deploy-falco
 deploy-falco:
 	helm repo add falcosecurity https://falcosecurity.github.io/charts; \
 	helm repo update; \
-	helm install -f falco falcosecurity/falco
+	helm install --generate-name falcosecurity/falco
 
 deploy-fluent-iam:
 	aws iam create-policy --policy-name EKS-CloudWatchLogs-"${EKS_CLUSTER_NAME}" --policy-document file://./fluent-bit/aws/iam_role_policy.json || true
