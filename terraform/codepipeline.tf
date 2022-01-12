@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "codepipeline_bucket" {
-  bucket = "${var.name}-devsecops-code"
+  bucket = "${var.name}-${data.aws_caller_identity.current.account_id}-devsecops-code"
   acl    = "private"
 }
 

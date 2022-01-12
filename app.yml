@@ -22,7 +22,6 @@ spec:
           env:
             - name: VERSION
               value: CONTAINERIMAGE
-            - name: MY_POD_NAME
             - name: MY_NODE_NAME
               valueFrom:
                 fieldRef:

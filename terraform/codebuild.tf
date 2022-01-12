@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "codebuild_s3" {
-  bucket = "devsecops-${var.name}-codebuild"
+  bucket = "devsecops-${var.name}-${data.aws_caller_identity.current.account_id}-codebuild"
   acl    = "private"
 }
 
