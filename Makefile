@@ -3,7 +3,7 @@ REGISTRY ?= strongjz
 NAME=codemash
 IMAGE ?= golang_example-$(NAME)
 
-GOLANG_VERSION ?= 1.13.5
+GOLANG_VERSION ?= 1.17.8
 AWS_REGION ?= us-west-2
 AWS_DEFAULT_REGION ?= us-west-2
 NODE_ROLE_NAME ?= node-group-1
@@ -20,6 +20,7 @@ EKS_CLUSTER_NAME ?= devsecops
 REPO_INFO ?= $(shell git config --get remote.origin.url)
 COMMIT_SHA ?= git-$(shell git rev-parse --short HEAD)
 ACCOUNT_ID ?=$(shell aws sts get-caller-identity --query Account --output text)
+DB_PASSWORD = test
 
 export
 
@@ -66,7 +67,10 @@ test_local:
 	curl localhost:8080/data
 	
 compose_up:
-	docker-compose up
+	docker-compose up &
+
+compose_down:
+	docker-compose down --volumes
 
 docker_build:
 	docker build -t $(ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE):$(VERSION) .
@@ -147,7 +151,7 @@ tf_apply:
 
 tf_destroy:
 	cd terraform/ && \
-	terraform destroy -var="name=${NAME}"
+	terraform apply -destroy -var="name=${NAME}" -auto-approve
 
 falco_deploy: deploy-fluent-bit deploy-falco
 

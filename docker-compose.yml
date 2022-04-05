@@ -6,7 +6,9 @@ services:
       - "${DB_PORT}:${DB_PORT}"
     restart: always
     environment:
+      POSTGRES_DB: ${DB_NAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USER}
     networks:
       - fullstack
   go-example:
